@@ -26,3 +26,9 @@ variable "custom_folder_description" {
   default     = ""
   type        = string
 }
+
+variable "custom_labels" {
+  description = "Custom labels for folder"
+  default     = {}
+  type        = map(string)
+}

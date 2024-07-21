@@ -1,0 +1,30 @@
+locals {
+  name = (
+    var.custom_folder_name != ""
+    ? var.custom_folder_name
+    : "${var.project}-${var.environment}"
+  )
+  description = (
+    var.custom_folder_description != ""
+    ? var.custom_folder_description
+    : var.spp
+  )
+  merged_labels = merge(
+    var.custom_labels,
+    {
+      spp              = lower(replace(var.spp, ".", "-"))
+      project          = var.project
+      environment      = var.environment
+      environment-type = var.environment_type
+      managed-by       = "terraform"
+      managed-by-team  = var.label_managed_by_team
+    },
+  )
+}
+
+resource "yandex_resourcemanager_folder" "folder" {
+  cloud_id    = var.cloud_id
+  name        = local.name
+  description = local.description
+  labels      = local.merged_labels
+}
