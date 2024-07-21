@@ -1,0 +1,27 @@
+output "private_subnets" {
+  description = "Private subnets created"
+  value = [
+    for subnet in local.subnets_flatten :
+    {
+      id   = yandex_vpc_subnet.subnets[subnet.cidr[0]].id,
+      zone = subnet.zone,
+      name = subnet.name,
+      cidr = subnet.cidr
+    }
+    if length(regexall("private", subnet.name)) > 0
+  ]
+}
+
+output "public_subnets" {
+  description = "Public subnets created"
+  value = [
+    for subnet in local.subnets_flatten :
+    {
+      id   = yandex_vpc_subnet.subnets[subnet.cidr[0]].id,
+      zone = subnet.zone,
+      name = subnet.name,
+      cidr = subnet.cidr
+    }
+    if length(regexall("public", subnet.name)) > 0
+  ]
+}

@@ -1,6 +1,8 @@
 locals {
   # Cloud
-  cloud_id      = "b1grem40nqckc9kuc9oj"
+  cloud_id     = "b1grem40nqckc9kuc9oj"
+  #Folder
+  folder_id    = "b1gnuciqmvp9213fu7gr"
   # Environment
   project          = "otus"
   environment_type = "dev"
