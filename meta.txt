@@ -1,0 +1,11 @@
+#cloud-config
+users:
+  - name: achekhirov
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh_authorized_keys:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG01ahvTEWhv7O/rjMrd9+nHpIagBMzo/hOW5ygaQ/u2 achekhirov@achekhirov-yc"
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMgYf8vKhjosqwrPmYLtwQfeXiGFFJovURcFTfgsBX/n admin@example.com"
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG01ahvTEWhv7O/rjMrd9+nHpIagBMzo/hOW5ygaQ/u2 achekhirov@achekhirov-yc"
+
