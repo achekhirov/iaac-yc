@@ -3,6 +3,13 @@ resource "yandex_iam_service_account" "tf-lock-sa" {
   name      = "fwea2015-tf-lock-sa"
 }
 
+// Grant permissions
+resource "yandex_resourcemanager_folder_iam_member" "tf-lock-sa" {
+  folder_id = var.folder_id
+  role      = "editor"
+  member    = "serviceAccount:${yandex_iam_service_account.tf-lock-sa.id}"
+}
+
 resource "yandex_ydb_database_serverless" "tf-lock-ydb" {
   name                = "yc-terraform-dev"
   deletion_protection = false

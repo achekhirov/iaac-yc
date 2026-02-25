@@ -9,5 +9,5 @@
 
 *.log
 .env
-
+fwea2015-tf-lock-sa-key.json
 terraform.tfvars
