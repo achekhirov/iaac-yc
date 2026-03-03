@@ -4,11 +4,18 @@ resource "yandex_iam_service_account" "tf-lock-sa" {
 }
 
 // Grant permissions
-resource "yandex_resourcemanager_folder_iam_member" "tf-lock-sa" {
+resource "yandex_resourcemanager_folder_iam_member" "tf-lock-sa-editor" {
   folder_id = var.folder_id
   role      = "editor"
   member    = "serviceAccount:${yandex_iam_service_account.tf-lock-sa.id}"
 }
+
+resource "yandex_resourcemanager_folder_iam_member" "tf-lock-sa-sa-admin" {
+  folder_id = var.folder_id
+  role      = "iam.serviceAccounts.admin"
+  member    = "serviceAccount:${yandex_iam_service_account.tf-lock-sa.id}"
+}
+
 
 resource "yandex_ydb_database_serverless" "tf-lock-ydb" {
   name                = "yc-terraform-dev"
