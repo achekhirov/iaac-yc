@@ -1,22 +1,3 @@
-### 1. Service Account для Cloud Function
-resource "yandex_iam_service_account" "dns_updater_sa" {
-  name        = "dns-updater-sa"
-  description = "Service account for Cloud Function that updates DNS records"
-}
-
-### 2. Назначение ролей SA
-resource "yandex_resourcemanager_folder_iam_member" "dns_editor" {
-  folder_id = var.folder_id
-  role      = "dns.editor"
-  member    = "serviceAccount:${yandex_iam_service_account.dns_updater_sa.id}"
-}
-
-resource "yandex_resourcemanager_folder_iam_member" "compute_viewer" {
-  folder_id = var.folder_id
-  role      = "compute.viewer"
-  member    = "serviceAccount:${yandex_iam_service_account.dns_updater_sa.id}"
-}
-
 ### 4. DNS-зона
 resource "yandex_dns_zone" "main_zone" {
   name        = "alexeychekhirovdotnet"
@@ -26,10 +7,34 @@ resource "yandex_dns_zone" "main_zone" {
 }
 
 ### 5. Начальная A-запись (опционально)
-resource "yandex_dns_recordset" "a_record" {
+resource "yandex_dns_recordset" "a_record_blog" {
   zone_id = yandex_dns_zone.main_zone.id
   name    = "blog.alexeychekhirov.net."
   type    = "A"
   ttl     = 300
   data    = ["158.160.17.252"] # временный IP
+}
+
+resource "yandex_dns_recordset" "a_record_git" {
+  zone_id = yandex_dns_zone.main_zone.id
+  name    = "git.alexeychekhirov.net."
+  type    = "A"
+  ttl     = 300
+  data    = ["178.154.226.28"]
+}
+
+resource "yandex_dns_recordset" "a_record_photo" {
+  zone_id = yandex_dns_zone.main_zone.id
+  name    = "photo.alexeychekhirov.net."
+  type    = "A"
+  ttl     = 300
+  data    = ["151.101.128.119", "151.101.192.119"]
+}
+
+resource "yandex_dns_recordset" "txt_record_identity_hub" {
+  zone_id = yandex_dns_zone.main_zone.id
+  name    = "_yandexcloud-challenge"
+  type    = "TXT"
+  ttl     = 300
+  data    = ["fs1lJ19JxFYqL02xU+cm9Ip9kVqTzxz5NDK4BB2HxAU="]
 }
