@@ -22,8 +22,9 @@ resource "yandex_mdb_mysql_cluster" "mysql" {
   }
 
   host {
-    zone      = "ru-central1-b"
-    subnet_id = data.yandex_vpc_subnet.default_subnet_b.id
+    zone             = "ru-central1-b"
+    subnet_id        = data.yandex_vpc_subnet.default_subnet_b.id
+    assign_public_ip = true
   }
 }
 

@@ -16,3 +16,9 @@ variable "mysql_deploytool_password" {
   description = "Password for MySQL deploy tool user"
   sensitive   = true # скрывает значение в выводе Terraform
 }
+
+variable "cloud_id" {
+  description = "Cloud ID in YC"
+  type        = string
+  default     = "b1grem40nqckc9kuc9oj"
+}
