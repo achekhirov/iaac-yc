@@ -78,3 +78,35 @@ resource "yandex_vpc_security_group" "test1_sg" {
     port           = 8000
   }
 }
+
+resource "yandex_vpc_security_group" "openwebui_sg" {
+  name        = "openwebui-lab-sg"
+  description = "Security Group for Ubuntu lab/test VM"
+  network_id  = data.yandex_vpc_network.default_network.id
+
+  egress {
+    protocol       = "ANY"
+    description    = "any"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol       = "TCP"
+    description    = "ssh"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 22
+  }
+  ingress {
+    protocol       = "TCP"
+    description    = "HTTP"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 80
+  }
+
+  ingress {
+    protocol       = "TCP"
+    description    = "HTTPS"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 443
+  }
+}
