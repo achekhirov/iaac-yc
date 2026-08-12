@@ -96,12 +96,6 @@ resource "yandex_vpc_security_group" "openwebui_sg" {
     v4_cidr_blocks = ["0.0.0.0/0"]
     port           = 22
   }
-  ingress {
-    protocol       = "TCP"
-    description    = "HTTP"
-    v4_cidr_blocks = ["0.0.0.0/0"]
-    port           = 80
-  }
 
   ingress {
     protocol       = "TCP"

@@ -9,14 +9,15 @@ resource "yandex_compute_disk" "openwebui_boot_disk" {
 }
 
 resource "yandex_compute_instance" "openwebui_compute" {
-  name        = "openwebui"
-  zone        = "ru-central1-b"
-  platform_id = "standard-v3"
+  name                      = "openwebui"
+  zone                      = "ru-central1-b"
+  platform_id               = "standard-v3"
+  allow_stopping_for_update = true
 
   resources {
     core_fraction = 100
-    cores         = 2
-    memory        = 2
+    cores         = 8
+    memory        = 16
   }
 
   boot_disk {
